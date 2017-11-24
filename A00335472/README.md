@@ -27,19 +27,19 @@ El tercer parcial del curso sistemas operativos trata sobre la creación de serv
 2. Ortografía y redacción cuando sea necesario (5%)
 3. Despliegue un esquema como el mostrado en la **figura 1**. Empleen un servicio web de su preferencia (puede usar alguno de los ejemplos de clase). No es necesario incluir los componentes para monitoreo (Elasticsearch, Kibana, Logstash) (30%)
 
-Sigiendo la **figura 1**, se despliega el siguiente sistema
+Sigiendo la **figura 1**, se despliega el siguiente esquema
 
-poner pic
+![][2]
 
 #### Servidor de descubrimiento de servicio
 
 Después de instalar las dependencias necesarias para el servidor (Guía so-discovery-service), se inicia el agente en modo servidor
 
-poner pic
+![][3]
 
 El servidor queda **alive** 
 
-poner pic
+![][4]
 
 ###  Microservicio
 
@@ -54,21 +54,24 @@ Se instala la librería flask en el ambiente y se crea el script iguazoservice.p
 $ pip install flask
 $ vi iguazoservice.py
 ```
-ponerpic
+![][5]
 Se inicia el microservicio
 ```
 $ python iguazoservice.py
 ```
 | Microservicio en ejecución | Prueba local |
 |--- | --- |
-| xdxd | xdxd  |
+| ![][6] | ![][7]  |
 
 Se crea un archivo de configuración para el microservicio con un healthcheck
-poner
+```
+echo '{"service": {"name": "iguazoservice", "tags": ["flask"], "port": 8080,
+  "check": {"script": "curl localhost:8080/health >/dev/null 2>&1", "interval": "10s"}}}' >/etc/consul.d/iguazoservice.json
+```
 Se inicia el agente en modo cliente
-ponerpic
+![][9]
 Se une el cliente al ambiente de descubrimiento de servicio. Luego, se verifica la lista de miembros del ambiente
-poner pic
+![][10]
 
 ### Balanceador de carga
 
@@ -98,41 +101,44 @@ Se configura el archivo **haproxy.cfg** y se reinicia el servicio
 $ sudo vi /etc/haproxy/haproxy.cfg
 $ sudo systemctl restart haproxy
 ```
-ponerpic
+![][11]
 Se configura las plantillas de consul-template
 ```
 # vi /etc/consul-template/haproxy.tpl
 ```
-poner pic
+![][12]
 Por último, se inicia el agente de consul-template (use una sesión de screen)
-poner pic
+![][13]
 
 Ahora, el cliente puede realizar peticiones hacia el balanceador, que se presenta como frontend del esquema implementado.
 
 | Petición Load Balancer | Prueba desde Consul Server |
 | --- | --- |
-| xdxd | xdxd |
+| ![][14] | ![][15] |
 
 4. Adicione un microservicio igual al ya desplegado. Muestre a través de evidencias como las peticiones realizadas al balanceador son dirigidas a la replica del microservicio (30%)
 
 Se agregan 3 microservicios al esquema. Cada uno fue implementado de manera similar al microservicio existente por los estudiantes
 Luis Trochez, Ana Valderrama y Nicolás Recalde. 
-poner pic
 
-| Microservicio 192.168.130.152 | Microservicio 192.168.130.157 | Microservicio 192.168.130.245 |
+![][25]
+
+**La dirección .152, se cambió a .231**
+
+| Microservicio 192.168.130.231 | Microservicio 192.168.130.157 | Microservicio 192.168.130.245 |
 | --- | --- | --- |
-| xdxd | xdxd | xdxd |
+| ![][16] | ![][17] | ![][18] |
 
 
 Se verifica la lista de consul members
-ponerpic
+![][19]
 
 
 Se realizan peticiones al balanceador, quien redirige a las replicas usando balanceo **roundrobin**
 
-| Redirección a 192.168.130.152 | Redirección a 192.168.130.157 | Redirección a 192.168.130.245 | Redirección a 192.168.168.130.236 |
+| Redirección a 192.168.130.231 | Redirección a 192.168.130.157 | Redirección a 192.168.130.245 | Redirección a 192.168.168.130.236 |
 | --- | --- | --- | --- |
-| xdxd | xdxd | xdxd | xdxd |
+| ![][20] | ![][21] | ![][22] | ![][23] |
 
 
 5. Describa los cambios o adiciones necesarias en el diagrama de la **figura 1** para adicionar un microservicio diferente al ya desplegado en el ambiente, tenga en cuenta los siguientes conceptos en su descripción: API Gateway, paradigma reactivo, load balancer, protocolo publicador/suscriptor (interconexión de microservicios) (20%)
@@ -141,7 +147,7 @@ En el esquema, se realiza una mínima analogía a una arquitectura con API Gatew
 
 En el esquema, el load balancer fue el API Gateway también. Para agregar un microservicio diferente, se puede agregar un API Gateway a la arquitectura y liberarlo de responsabilidades de balanceo de carga. Se crea un nuevo balanceador de carga y discovery service para el microservicio. Por último, se crean y registran los clientes del nuevo microservicio.
 
-ponerpic
+![][24]
 
 
 6. El informe debe ser entregado en formato pdf a través del moodle y el informe en formato README.md debe ser subido a un repositorio de github. El repositorio de github debe ser un fork de https://github.com/ICESI-Training/so-exam3 y para la entrega deberá hacer un Pull Request (PR) respetando la estructura definida. El código fuente y la url de github deben incluirse en el informe (10%)  
@@ -149,3 +155,30 @@ ponerpic
 ### Referencias
 https://github.com/ICESI/so-microservices-python  
 http://microservices.io/patterns/microservices.html
+https://www.nginx.com/blog/microservices-api-gateways-part-1-why-an-api-gateway/
+https://github.com/ICESI/so-discovery-service/blob/master/README.md
+
+[1]: images/esquema.png
+[2]: images/0.png
+[3]: images/consul_agent_server.PNG
+[4]: images/consul_logs.PNG
+[5]: images/parcial3a.PNG
+[6]: images/parcial3d.PNG
+[7]: images/parcial3e.PNG
+[9]: images/parcial3b.PNG
+[10]: images/parcia3c.png
+[11]: images/HAProxyActualizado.png
+[12]: images/configuracionConsulTemplates.png
+[13]: images/ActualzacionDinamicaBalanceador.png
+[14]: images/DemostracionFuncionBalanceador.png
+[15]: images/browser_alejo.PNG
+[16]: images/6.PNG
+[17]: images/4.PNG
+[18]: images/5.PNG
+[19]: images/parcial3c.PNG
+[20]: images/loadbalancer3.JPG  
+[21]: images/13 (1).png  
+[22]: images/loadbalancer1.JPG  
+[23]: images/loadbalancer2.JPG  
+[24]: images/2.png  
+[25]: images/1.png  
