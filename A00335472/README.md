@@ -154,8 +154,9 @@ En el esquema, el load balancer fue el API Gateway también. Para agregar un mic
 
 ### Referencias
 https://github.com/ICESI/so-microservices-python  
-http://microservices.io/patterns/microservices.html
-https://www.nginx.com/blog/microservices-api-gateways-part-1-why-an-api-gateway/
+http://microservices.io/patterns/microservices.html  
+https://www.nginx.com/blog/microservices-api-gateways-part-1-why-an-api-gateway/  
+https://www.arquitecturajava.com/reactive-microservices-y-arquitectura/
 https://github.com/ICESI/so-discovery-service/blob/master/README.md
 
 [1]: images/esquema.png
