@@ -143,7 +143,7 @@ Se realizan peticiones al balanceador, quien redirige a las replicas usando bala
 
 5. Describa los cambios o adiciones necesarias en el diagrama de la **figura 1** para adicionar un microservicio diferente al ya desplegado en el ambiente, tenga en cuenta los siguientes conceptos en su descripción: API Gateway, paradigma reactivo, load balancer, protocolo publicador/suscriptor (interconexión de microservicios) (20%)
 
-En el esquema, se realiza una mínima analogía a una arquitectura con API Gateway pattern, que significa poner un API Gateway en frente de los microservicios y hacerlo el punto de entrada para cada solicitud del cliente (web, móvil, etc.). El API Gateway puede ser el balanceador de carga y viceversa, quien se encarga de realizar la interconexión de microservicios para el cliente. 
+En el esquema, se realiza una mínima analogía a una arquitectura con API Gateway pattern, que significa poner un API Gateway en frente de los microservicios y hacerlo el punto de entrada para cada solicitud del cliente (web, móvil, etc.). El API Gateway puede ser el balanceador de carga y viceversa, quien se encarga de realizar la interconexión de microservicios para el cliente. Esta arquitectura esta estrechamente ligada con el paradigma reactivo, basado en flujo de datos, porque permite realizar una comunicación óptima asíncrona entre los diferentes microservicios desplegados.
 
 En el esquema, el load balancer fue el API Gateway también. Para agregar un microservicio diferente, se puede agregar un API Gateway a la arquitectura y liberarlo de responsabilidades de balanceo de carga. Se crea un nuevo balanceador de carga y discovery service para el microservicio. Por último, se crean y registran los clientes del nuevo microservicio.
 
