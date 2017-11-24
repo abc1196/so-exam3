@@ -176,8 +176,8 @@ https://github.com/ICESI/so-discovery-service/blob/master/README.md
 [17]: images/4.PNG
 [18]: images/5.PNG
 [19]: images/parcial3c.PNG
-[20]: images/loadbalancer3.JPG  
-[21]: images/13 (1).png  
+[20]: images/loadbalancer3.JPG
+[21]: images/lb157.png  
 [22]: images/loadbalancer1.JPG  
 [23]: images/loadbalancer2.JPG  
 [24]: images/2.png  
